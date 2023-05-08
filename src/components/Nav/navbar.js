@@ -2,7 +2,7 @@ import React from 'react';
 import Login from './login';
 import Header from './header';
 
-function navbar() {
+function Navbar() {
   return (
     <div className='flex  '>
       <nav class="flex md:flex flex-grow flex-row justify-between space-x-1 bg-slate-300 ">
@@ -13,4 +13,4 @@ function navbar() {
   )
 }
 
-export default navbar
+export default Navbar
