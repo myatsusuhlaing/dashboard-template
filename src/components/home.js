@@ -1,18 +1,23 @@
 import React from 'react';
-import Navbar from './Nav/navbar';
 import Sidebar from './Dashboard/sidebar';
+import Dashboard from './Dashboard/Dashboard';
+import Map from './Dashboard/Map';
+// import { Routes, Route, BrowserRouter } from "react-router-dom";
 
-function home() {
+function Home() {
   return (
     <div className='home'>
-    <div>
-        <Navbar/>
-    </div>
-    <div>
-        <Sidebar/>
-    </div>
+      <div>
+          {/* <BrowserRouter>
+            <Routes>
+              <Route path="/Dashboard" element={<Dashboard/>}/>
+              <Route path="/Map" element={<Map/>}/>
+            </Routes>
+          </BrowserRouter> */}
+          <Sidebar/>
+      </div>
     </div>
   )
 }
 
-export default home
+export default Home
