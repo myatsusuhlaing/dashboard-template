@@ -1,14 +1,43 @@
-import React from 'react';
+import * as React from 'react';
+import { styled} from '@mui/material/styles';
+import MuiAppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import { useAppStore } from '../../AppStore';
 
-function Navbar() {
+export default function Navbar() {
+const updateOpen = useAppStore((state) => state.updateOpen);
+const dopen = useAppStore((state) => state.dopen);
+
+  const AppBar = styled(MuiAppBar, {
+  })(({ theme }) => ({
+    zIndex: theme.zIndex.drawer + 1,
+  }));
+
   return (
-    <div className='flex  '>
-      {/* <nav class="flex md:flex flex-grow flex-row justify-between space-x-1 bg-slate-300 ">
-        <a href="/header" class="font-medium px-3 py-2 text-slate-700 flex justify-start  hover:bg-slate-100 hover:text-slate-900"><Header/></a> 
-        <a href="/login" class="font-medium px-3 py-2 text-slate-700  hover:bg-slate-100 hover:text-slate-900 "><Login/></a>
-      </nav> */}
-    </div>
-  )
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="fixed">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+            onClick = {() => updateOpen(!dopen)}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} >
+            Admin Template
+          </Typography>
+          <Button color="inherit">Login</Button>
+        </Toolbar>
+      </AppBar>
+    </Box>
+  );
 }
-
-export default Navbar
