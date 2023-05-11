@@ -7,11 +7,13 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import {useNavigate} from 'react-router-dom';
 import { useAppStore } from '../../AppStore';
 
 export default function Navbar() {
 const updateOpen = useAppStore((state) => state.updateOpen);
 const dopen = useAppStore((state) => state.dopen);
+const navigate = useNavigate();
 
   const AppBar = styled(MuiAppBar, {
   })(({ theme }) => ({
@@ -32,7 +34,13 @@ const dopen = useAppStore((state) => state.dopen);
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} >
+          <Typography 
+            variant="h6" 
+            component="div" 
+            sx={{ flexGrow: 1 }} 
+            className='cursor-pointer' 
+            onClick={() => {navigate("/")}} 
+          >
             Admin Template
           </Typography>
           <Button color="inherit">Login</Button>
