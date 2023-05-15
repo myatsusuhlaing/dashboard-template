@@ -20,6 +20,11 @@ const navigate = useNavigate();
     zIndex: theme.zIndex.drawer + 1,
   }));
 
+  const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated");
+    window.location.href = '/login';
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
@@ -43,7 +48,7 @@ const navigate = useNavigate();
           >
             Admin Template
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit" onClick={handleLogout}>Log Out</Button>
         </Toolbar>
       </AppBar>
     </Box>

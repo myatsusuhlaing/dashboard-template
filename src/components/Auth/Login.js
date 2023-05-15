@@ -1,41 +1,42 @@
-import React, { useState } from 'react';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import axios from 'axios';
+import React, { useState } from "react";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import axios from "axios";
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    axios.post('http://121.54.167.132:8888/api/user/login', {
-      email,
-      password,
-    })
+    axios
+      .post("http://121.54.167.132:8888/api/user/login", {
+        email,
+        password,
+      })
       .then((response) => {
         console.log(response.data);
         if (response.status === 200) {
+          localStorage.setItem("isAuthenticated",true); 
           window.location.href = '/';
-        } else {
+        }
+        else {
           alert(response.data.message);
         }
-        setPassword('');
-        setEmail('');
       })
       .catch((error) => {
-        console.error(error);
+        alert(error.message);
       });
-    };
+  };
 
   return (
     <>
       <CssBaseline />
-      <div className=' h-screen flex justify-center w-full md:w-auto items-center'>
-        <div className='border border-slate-500 rounded-lg sm:w-4/12 p-5 mx-auto flex flex-col'>
-          <h2 className='text-xl text-slate-700'>
+      <div className=" h-screen flex justify-center w-full md:w-auto items-center">
+        <div className="border border-slate-500 rounded-lg sm:w-4/12 p-5 mx-auto flex flex-col">
+          <h2 className="text-xl text-slate-700">
             Log In
             <hr className=" divide-y mt-2 border-2 border-slate-400"></hr>
           </h2>
@@ -43,7 +44,7 @@ export default function Login() {
             component="form"
             paddingTop={3}
             sx={{
-              '& > :not(style)': { m: 1, width: '28ch' },
+              "& > :not(style)": { m: 1, width: "28ch" },
             }}
             noValidate
             autoComplete="off"
@@ -68,7 +69,9 @@ export default function Login() {
             required
           />
           <Stack spacing={2} paddingTop={4}>
-            <Button variant="contained" onClick={handleLogin}>Log In</Button>
+            <Button variant="contained" onClick={handleLogin}>
+              Log In
+            </Button>
           </Stack>
         </div>
       </div>
