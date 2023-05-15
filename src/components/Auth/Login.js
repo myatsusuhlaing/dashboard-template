@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import axios from "axios";
+import Cookies from 'js-cookie';
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(Cookies.get('accessToken')){
+      navigate('/');
+    }
+  },[navigate]);
 
   const handleLogin = () => {
     axios
@@ -19,8 +28,11 @@ export default function Login() {
       .then((response) => {
         console.log(response.data);
         if (response.status === 200) {
+          console.log(response);
+          Cookies.set('accessToken', response.data.data.accessToken,{ expires: 7 });
+          Cookies.set('refreshToken', response.data.data.refreshToken,{ expires: 30 });
           localStorage.setItem("isAuthenticated",true); 
-          window.location.href = '/';
+          navigate('/');
         }
         else {
           alert(response.data.message);

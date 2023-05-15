@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import {useNavigate} from 'react-router-dom';
 import { useAppStore } from '../../AppStore';
+import Cookies from 'js-cookie';
 
 export default function Navbar() {
 const updateOpen = useAppStore((state) => state.updateOpen);
@@ -20,9 +21,12 @@ const navigate = useNavigate();
     zIndex: theme.zIndex.drawer + 1,
   }));
 
+
   const handleLogout = () => {
+    Cookies.remove('accessToken');
+    // setIsAuthenticated(false);
     localStorage.removeItem("isAuthenticated");
-    window.location.href = '/login';
+    navigate('/login');
   };
 
   return (
