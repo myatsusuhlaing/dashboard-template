@@ -6,12 +6,10 @@ import Divider from "@mui/material/Divider";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import NearMeIcon from "@mui/icons-material/NearMe";
-import SettingsIcon from "@mui/icons-material/Settings";
 import { useNavigate } from "react-router-dom";
 import { useAppStore } from "../../AppStore";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import { MENU_LIST } from "../Route/menuData";
 
 export default function Sidebar() {
   const updateOpen = useAppStore((state) => state.updateOpen);
@@ -29,10 +27,13 @@ export default function Sidebar() {
   <Box sx={{ minHeight :60 ,px :15}}/>
     <List>
       {/* ----------------------------------- Dashboard ----------------------------------- */}
+      
+      {MENU_LIST.map((menu) => (
+        <div key={menu.id}>
       <ListItem
         disablePadding
         onClick={() => {
-          navigate("/");
+          navigate(menu.route);
           updateOpen(false);
         }}
       >
@@ -44,14 +45,16 @@ export default function Sidebar() {
           }}
         >
           <ListItemIcon sx={{ justifyContent: "center" }}>
-            <DashboardIcon />
+            {menu.icon}
           </ListItemIcon>
-          <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0 }} />
+          <ListItemText primary={menu.name} sx={{ opacity: open ? 1 : 0 }} />
         </ListItemButton>
       </ListItem>
-
+      </div>
+      ))}
+      
       {/* --------------------------------- Map --------------------------------- */}
-      <ListItem
+      {/* <ListItem
         disablePadding
         onClick={() => {
           navigate("/Map");
@@ -70,10 +73,10 @@ export default function Sidebar() {
           </ListItemIcon>
           <ListItemText primary="Map" sx={{ opacity: open ? 1 : 0 }} />
         </ListItemButton>
-      </ListItem>
+      </ListItem> */}
 
       {/* --------------------------------- Settings --------------------------------- */}
-      <ListItem
+      {/* <ListItem
         disablePadding
         onClick={() => {
           navigate("/Settings");
@@ -92,7 +95,7 @@ export default function Sidebar() {
           </ListItemIcon>
           <ListItemText primary="Settings" sx={{ opacity: open ? 1 : 0 }} />
         </ListItemButton>
-      </ListItem>
+      </ListItem> */}
     </List>
     <Divider/>
   </SwipeableDrawer>
