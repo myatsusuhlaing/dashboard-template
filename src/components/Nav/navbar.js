@@ -24,6 +24,7 @@ const navigate = useNavigate();
 
   const handleLogout = () => {
     Cookies.remove('accessToken');
+    Cookies.remove('refreshToken');
     // setIsAuthenticated(false);
     localStorage.removeItem("isAuthenticated");
     navigate('/login');
