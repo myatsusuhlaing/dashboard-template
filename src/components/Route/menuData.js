@@ -3,7 +3,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import NearMeIcon from "@mui/icons-material/NearMe";
 import SettingsIcon from "@mui/icons-material/Settings";
 
-export const MENU_LIST = [
+export const Sidebar_Menu = [
   {
     id: 1,
     name: "Dashboard",

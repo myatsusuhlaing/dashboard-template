@@ -9,7 +9,7 @@ import ListItemText from "@mui/material/ListItemText";
 import { useNavigate } from "react-router-dom";
 import { useAppStore } from "../../AppStore";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-import { MENU_LIST } from "../Route/menuData";
+import { Sidebar_Menu } from "../Route/menuData";
 
 export default function Sidebar() {
   const updateOpen = useAppStore((state) => state.updateOpen);
@@ -24,11 +24,9 @@ export default function Sidebar() {
       onOpen={() => updateOpen(true)}
       onClose={() => updateOpen(false)}
     >
-  <Box sx={{ minHeight :60 ,px :15}}/>
-    <List>
-      {/* ----------------------------------- Dashboard ----------------------------------- */}
-      
-      {MENU_LIST.map((menu) => (
+  <Box sx={{ minHeight :60 ,px :15 }}/>
+    <List>      
+      {Sidebar_Menu.map((menu) => (
         <div key={menu.id}>
       <ListItem
         disablePadding

@@ -4,6 +4,7 @@ import Map from './Dashboard/Map';
 import Settings from './Dashboard/Settings';
 import Login from './Auth/Login';
 import WithAuth from './Auth/WithAuth';
+import Layout from './Dashboard/Layout';
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 function Home() {
@@ -15,10 +16,12 @@ function Home() {
       <div>
           <BrowserRouter>
             <Routes>
-              <Route path="/" exact element={<AuthenticatedDashboard />}/>
-              <Route path="/Map"  exact element={<AuthenticatedMap/>}/>
-              <Route path="/Settings"  exact element={<AuthenticatedSettings />}/>
               <Route path="/Login"  exact element={<Login/>}/>
+              <Route element={<Layout />}>
+                <Route path="/" exact element={<AuthenticatedDashboard />}/>
+                <Route path="/Map"  exact element={<AuthenticatedMap/>}/>
+                <Route path="/Settings"  exact element={<AuthenticatedSettings />}/>
+              </Route>
             </Routes>
           </BrowserRouter>
       </div>
