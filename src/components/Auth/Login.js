@@ -4,6 +4,13 @@ import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Input from '@mui/material/Input';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios from "axios";
 import Cookies from 'js-cookie';
 import { useNavigate } from "react-router-dom";
@@ -11,11 +18,12 @@ import { useNavigate } from "react-router-dom";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   useEffect(()=>{
     if(Cookies.get('accessToken')){
-      navigate('/');
+      navigate('/',{ replace: false });
     }
   },[navigate]);
 
@@ -32,7 +40,7 @@ export default function Login() {
           Cookies.set('accessToken', response.data.data.accessToken,{ expires: 7 });
           Cookies.set('refreshToken', response.data.data.refreshToken,{ expires: 30 });
           localStorage.setItem("isAuthenticated",true); 
-          navigate('/');
+          navigate('/',{ replace:false });
         }
         else {
           alert(response.data.message);
@@ -42,6 +50,17 @@ export default function Login() {
         alert(error.message);
       });
   };
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      handleLogin();
+    }
+  };
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  if (Cookies.get("accessToken")) {
+    return null;
+  }
 
   return (
     <>
@@ -69,19 +88,30 @@ export default function Login() {
             onChange={(event) => setEmail(event.target.value)}
             required
             sx={{ paddingBottom: 2 }}
+            onKeyPress={handleKeyPress}
           />
-          <TextField
-            id="filled-password-input"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-            variant="standard"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            required
-          />
+          <FormControl variant="standard" >
+            <InputLabel htmlFor="standard-adornment-password">Password *</InputLabel>
+            <Input
+              id="standard-adornment-password"
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              onKeyPress={handleKeyPress}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
           <Stack spacing={2} paddingTop={4}>
-            <Button variant="contained" onClick={handleLogin}>
+            <Button variant="contained" type="submit"  onClick={handleLogin}>
               Log In
             </Button>
           </Stack>
@@ -90,3 +120,14 @@ export default function Login() {
     </>
   );
 }
+  {/* <TextField
+    id="filled-password-input"
+    label="Password"
+    type="password"
+    autoComplete="current-password"
+    variant="standard"
+    value={password}
+    onChange={(event) => setPassword(event.target.value)}
+    required
+  /> */}
+

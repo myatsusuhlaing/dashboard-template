@@ -2,6 +2,7 @@ import React from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import NearMeIcon from "@mui/icons-material/NearMe";
 import SettingsIcon from "@mui/icons-material/Settings";
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 
 export const Sidebar_Menu = [
   {
@@ -22,4 +23,10 @@ export const Sidebar_Menu = [
     icon: <SettingsIcon />,
     route: "/Settings",
   },
+  {
+    id: 3,
+    name: "Status",
+    icon: <ContentPasteIcon />,
+    route: "/status",
+  }
 ];
